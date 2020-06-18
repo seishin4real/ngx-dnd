@@ -75,7 +75,12 @@ export class DrakeStoreService {
       return true;
     };
 
-    return { accepts, copy, moves, revertOnSpill: true, direction: 'vertical' };
+    const direction: any = (el: any, target: any, source: any) => {
+      const targetComponent = this.droppableMap.get(target);
+      return targetComponent.direction || 'vertical';
+    };
+
+    return { accepts, copy, moves, revertOnSpill: true, direction };
   }
 
   registerEvents(): void {

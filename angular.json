@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": false,
             "outputPath": "dist/ngx-dnd",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -25,12 +26,19 @@
               "src/.nojekyll"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "projects/swimlane/ngx-dnd/src/lib/ngx-dnd.scss"
             ],
             "scripts": []
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -42,10 +50,10 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
+              "aot": false,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true
+              "buildOptimizer": false
             }
           }
         },
@@ -77,6 +85,10 @@
               "**/node_modules/**"
             ]
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {}
         }
       }
     },
@@ -94,7 +106,8 @@
           },
           "configurations": {
             "production": {
-              "project": "projects/swimlane/ngx-dnd/ng-package.prod.json"
+              "project": "projects/swimlane/ngx-dnd/ng-package.prod.json",
+              "tsConfig": "projects/swimlane/ngx-dnd/tsconfig.lib.prod.json"
             }
           }
         },

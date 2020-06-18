@@ -18,7 +18,8 @@
  * BROWSER POLYFILLS
  */
 
-/** IE9, IE10 and IE11 requires all of the following polyfills. **/
+/* IE9, IE10 and IE11 requires all of the following polyfills. */
+
 // import 'core-js/es6/symbol';
 // import 'core-js/es6/object';
 // import 'core-js/es6/function';
@@ -40,17 +41,20 @@
 /** IE10 and IE11 requires the following for the Reflect API. */
 import 'core-js/es6/reflect';
 
+// Used for browsers with partially native support of Custom Elements
+import '@webcomponents/custom-elements/src/native-shim';
 
-/** Evergreen browsers require these. **/
+// Used for browsers without a native support of Custom Elements
+import '@webcomponents/custom-elements/custom-elements.min';
+
+/* Evergreen browsers require these. */
 // Used for reflect-metadata in JIT. If you use AOT (and only Angular decorators), you can remove.
 
-
-
-/**
+/*
  * Web Animations `@angular/platform-browser/animations`
  * Only required if AnimationBuilder is used within the application and using IE/Edge or Safari.
  * Standard animation support in Angular DOES NOT require any polyfills (as of Angular 6.0).
- **/
+ */
 // import 'web-animations-js';  // Run `npm install --save web-animations-js`.
 
 /**
@@ -58,11 +62,11 @@ import 'core-js/es6/reflect';
  * user can disable parts of macroTask/DomEvents patch by setting following flags
  */
 
- // (window as any).__Zone_disable_requestAnimationFrame = true; // disable patch requestAnimationFrame
- // (window as any).__Zone_disable_on_property = true; // disable patch onProperty such as onclick
- // (window as any).__zone_symbol__BLACK_LISTED_EVENTS = ['scroll', 'mousemove']; // disable patch specified eventNames
+// (window as any).__Zone_disable_requestAnimationFrame = true; // disable patch requestAnimationFrame
+// (window as any).__Zone_disable_on_property = true; // disable patch onProperty such as onclick
+// (window as any).__zone_symbol__BLACK_LISTED_EVENTS = ['scroll', 'mousemove']; // disable patch specified eventNames
 
- /*
+/*
  * in IE/Edge developer tools, the addEventListener will also be wrapped by zone.js
  * with the following flag, it will bypass `zone.js` patch for IE/Edge
  */
@@ -71,22 +75,13 @@ import 'core-js/es6/reflect';
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
-import 'zone.js/dist/zone';  // Included with Angular CLI.
-
-
+import 'zone.js/dist/zone'; // Included with Angular CLI.
 
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+import '@ungap/global-this';
 
-// Used for browsers with partially native support of Custom Elements
-import '@webcomponents/custom-elements/src/native-shim';
-
-// Used for browsers without a native support of Custom Elements
-import '@webcomponents/custom-elements/custom-elements.min';
-
-// import smoothscroll from 'smoothscroll-polyfill';
-import * as process from 'process';
-
-// smoothscroll.polyfill();
-window['process'] = process;
+window['global'] = globalThis as any;
+window['process'] = window['process'] || require('process/browser');
+window['Buffer'] = window['Buffer'] || require('buffer').Buffer;
